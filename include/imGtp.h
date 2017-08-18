@@ -4,12 +4,12 @@
 // Include all available headers for
 // our GTP implementation.
 
+#include "Controller.h"
 #include "Argument.h"
 #include "Command.h"
 #include "Engine.h"
-#include "Controller.h"
-#include "Move.h"
 #include "Player.h"
 #include "Vertex.h"
+#include "Move.h"
 
 #endif

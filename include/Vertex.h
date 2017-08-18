@@ -3,6 +3,7 @@
 
 #include <string>
 #include <utility>
+
 #include "Argument.h"
 
 namespace gtp {
@@ -29,7 +30,7 @@ public:
 	 * \param x X-Coordinate of the vertex, should be in the range [0, BOARD_SIZE)
 	 * \param y Y-Coordinate of the vertex, should be in the range [0, BOARD_SIZE)
 	 */
-	Vertex(int x, int y);
+	Vertex(int x, int y, bool Pass = false);
 
 	/**
 	 * Returns the coordinate representation of this vertex as a
@@ -43,11 +44,18 @@ public:
 	 */
 	std::string to_string();
 
+	const inline bool is_pass() { return pass; }
+	const inline bool is_stone() { return !pass; }
+	const inline int get_x() { return h_pos; }
+	const inline int get_y() { return v_pos; }
+
 private:
 	/// Horizontal position of this vertex where 0 is the left edge of the board.
 	int h_pos;
 	/// Vertical position of this vertex, where 0 is the bottom edge of the board.
 	int v_pos;
+	// if this is not a positional vertex, and is instead a pass, this will be true
+	bool pass;
 };
 
 }

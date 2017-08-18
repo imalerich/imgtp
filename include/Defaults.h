@@ -4,9 +4,10 @@
 #include <string>
 #include <vector>
 #include <stdlib.h>
+
 #include "Argument.h"
-#include "Vertex.h"
 #include "Command.h"
+#include "Vertex.h"
 
 namespace gtp {
 
