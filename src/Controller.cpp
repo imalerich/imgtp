@@ -15,7 +15,7 @@ Controller::~Controller() {
 	kill(pid, 0); // kill the engine process
 }
 
-void Controller::attach_engine(std::string Engine) {
+void Controller::attach_engine(std::string engine) {
 	// create and fork a new process
 	pipe(engine_read);
 	pipe(engine_write);

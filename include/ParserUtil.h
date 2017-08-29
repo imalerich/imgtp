@@ -18,7 +18,7 @@ namespace gtp {
 std::string preproc_line(const std::string &line);
 
 /**
- * \param The line in question.
+ * \param line The line in question.
  * \return Should this line be ignored?
  */
 bool ignore_line(const std::string &line);

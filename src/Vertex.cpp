@@ -1,4 +1,5 @@
 #include <boost/lexical_cast.hpp>
+#include <boost/algorithm/string.hpp>
 #include <algorithm>
 #include <string>
 #include <sstream>
@@ -10,6 +11,8 @@ namespace gtp {
 Vertex::Vertex(std::string v) {
 	iArgument::type = ARG_VERTEX;
 	transform(v.begin(), v.end(), v.begin(), ::toupper);
+
+	boost::algorithm::to_upper(v);
 
 	// check if this is a passing move
 	if (v == "PASS") {

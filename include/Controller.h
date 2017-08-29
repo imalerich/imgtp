@@ -33,7 +33,7 @@ public:
 	 * program (name and arguments given as string), using the
 	 * provided board size and komi.
 	 */
-	void attach_engine(std::string Engine);
+	void attach_engine(std::string engine);
 
 	/**
 	 * \fn void play_move(int x, int y, Player color);
