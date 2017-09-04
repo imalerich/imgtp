@@ -55,6 +55,11 @@ Response:: Response(FILE * engine, Command Type, int ID) :
 			while (isspace(response[0])) {
 				response = response.erase(0, 1);
 			}
+	
+			// now just rip the trailing white space
+			while (isspace(response[response.size()-1])) {
+				response = response.erase(response.size()-1, 1);
+			}
 
 		} else {
 			// error - nothing left to read

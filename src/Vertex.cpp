@@ -4,6 +4,8 @@
 #include <string>
 #include <sstream>
 #include <ctype.h>
+#include <iostream>
+
 #include "Vertex.h"
 
 namespace gtp {
