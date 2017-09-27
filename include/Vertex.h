@@ -36,18 +36,20 @@ public:
 	 * Returns the coordinate representation of this vertex as a
 	 * pair of unsigned integers.
 	 */
-	std::pair<int, int> coords();
+	std::pair<int, int> coords() const;
 
 	/**
 	 * Convert this vector into a string representation that
 	 * may be output by the GTP engine.
 	 */
-	std::string to_string();
+	std::string to_string() const;
 
-	const inline bool is_pass() { return pass; }
-	const inline bool is_stone() { return !pass; }
-	const inline int get_x() { return h_pos; }
-	const inline int get_y() { return v_pos; }
+	friend std::ostream& operator<<(std::ostream &out, const Vertex &v);
+
+	const inline bool is_pass() const { return pass; }
+	const inline bool is_stone() const { return !pass; }
+	const inline int get_x() const { return h_pos; }
+	const inline int get_y() const { return v_pos; }
 
 private:
 	/// Horizontal position of this vertex where 0 is the left edge of the board.
