@@ -11,6 +11,7 @@ namespace gtp {
 Vertex::Vertex(std::string v) {
 	iArgument::type = ARG_VERTEX;
 	transform(v.begin(), v.end(), v.begin(), ::toupper);
+	pass = false;
 
 	boost::algorithm::to_upper(v);
 
