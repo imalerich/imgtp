@@ -22,16 +22,46 @@ void Controller::attach_engine(std::string engine) {
 	pid = fork();
 
 	// execute the engine on the newly forked child process
-	if (pid == 0) {
+	if (pid < 0) {
+		std::cerr << "ERROR - Fork Failed... Exiting" << std::endl;
+		exit(-1);
+	} else if (pid == 0) { // child process
 		dup2(engine_read[1], STDOUT_FILENO); // pipe<-child (writing) as stdout
 		dup2(engine_write[0], STDIN_FILENO); // pipe->child (reading) as stdin
 
 		close(engine_read[0]); // read
 		close(engine_write[1]); // write
 
+		// block of data containing each of our arguments
+		// each argument is NULL termianted, with the array itself being null terminated
+		// add 2 to icnlude terminating NULL of the c_string as well as terminating NULL of array
+		char * args = (char *)malloc(sizeof(char) * (engine.size()+2));
+		std::strcpy(args, engine.c_str());
+
+		// replace white space characters with NULL characters
+		for (char * c=args; *c != '\0'; ++c) {
+			if (isspace(*c)) { *c = '\0'; }
+		}
+		args[engine.size()+1] = '\0'; // NULL terminate the array
+
+		// next, we need to count how many arguments we have
+		size_t num_args = 0;
+		for (char * arg = args; arg[0] != '\0'; arg += (strlen(arg) + 1)) {
+			++num_args;
+		}
+
+		// then create an array pointing to each starting character for each argument
+		char ** arr = (char **)malloc(sizeof(char *) * (num_args + 1));
+		int i=0;
+		for (char * arg = args; arg[0] != '\0'; arg += (strlen(arg) + 1)) {
+			arr[i++] = arg;
+		}
+		arr[num_args] = NULL;
+
 		// replace the current process image with a new one
 		// this will be our engine
-		execl("/bin/gnugo", "/bin/gnugo", "--mode", "gtp", NULL);
+		execvp(arr[0], arr);
+		std::cerr << "ERROR - Failed to Run Engine... Exiting" << std::endl;
 		exit(1); // if we fail to run the engine, kill this process
 	}
 

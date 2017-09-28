@@ -4,6 +4,8 @@
 #include <string>
 #include <sstream>
 #include <ctype.h>
+#include <iostream>
+
 #include "Vertex.h"
 
 namespace gtp {
@@ -40,11 +42,11 @@ Vertex::Vertex(int x, int y, bool Pass) {
 	pass = Pass;
 }
 
-std::pair<int, int> Vertex::coords() {
+std::pair<int, int> Vertex::coords() const {
 	return std::make_pair(h_pos, v_pos);
 }
 
-std::string Vertex::to_string() {
+std::string Vertex::to_string() const {
 	// passing moves are easy - simply use the text 'pass'
 	if (is_pass()) { return "PASS"; }
 
@@ -52,6 +54,11 @@ std::string Vertex::to_string() {
 	// add one to skip I if necessary
 	char arr[] = { (char)('A' + h_pos + (h_pos >= 8 ? 1 : 0)), '\0' };
 	return std::string(arr) + std::to_string(v_pos + 1);
+}
+
+std::ostream& operator<<(std::ostream& os, const Vertex &v) {
+	os << v.to_string();
+	return os;
 }
 
 }
